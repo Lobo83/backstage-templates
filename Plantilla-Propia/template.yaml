@@ -1,5 +1,5 @@
-apiVersion: scaffolder.backstage.io/v1beta3
-kind: Component
+apiVersion: scaffolder.backstage.io/v1beta1
+kind: Template
 metadata:
   name: plantilla-springboot
   title: Plantilla Ejemplo Spring Boot
