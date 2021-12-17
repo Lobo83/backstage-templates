@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha3
+kind: Location
+metadata:
+  name: hunters-altia-template
+  description: a collection of altia project templates
+spec:
+  type: url
+  targets:
+    - https://github.com/Lobo83/backstage-templates/blob/master/Plantilla-Propia/template.yaml
