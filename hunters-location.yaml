@@ -5,5 +5,7 @@ metadata:
   description: a collection of altia project templates
 spec:
   type: url
+  rules:
+    - allow: [Template]
   targets:
     - https://github.com/Lobo83/backstage-templates/blob/master/Plantilla-Propia/template.yaml
