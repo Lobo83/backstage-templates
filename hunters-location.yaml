@@ -1,4 +1,4 @@
-apiVersion: backstage.io/v1alpha3
+apiVersion: backstage.io/v1alpha1
 kind: Location
 metadata:
   name: hunters-altia-template
