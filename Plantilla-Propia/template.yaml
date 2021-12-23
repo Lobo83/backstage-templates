@@ -1,4 +1,4 @@
-apiVersion: backstage.io/v1beta2
+apiVersion: backstage.io/v1alpha1
 kind: Template
 metadata:
   name: plantilla-springboot-2
