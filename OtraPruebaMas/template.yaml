@@ -1,0 +1,87 @@
+apiVersion: backstage.io/v1beta2
+kind: Template
+metadata:
+  name: esta-si-que-si
+  title: que si que tira
+  description: Create an example of spring project
+  tags:
+    - recommended
+    - java
+spec:
+  owner: JoseLuis
+  type: service
+
+  parameters:
+    - title: Rellena información básica
+      required:
+        - component_id
+        - owner
+        - java_package_name
+      properties:
+        component_id:
+          title: Name
+          type: string
+          description: Nombre unico del componente
+        java_package_name:
+          title: Java Package Name
+          type: string
+          description: Nombre del paquete java ej. (io.backstage.blah)
+        description:
+          title: Description
+          type: string
+          description: Añade una pequeña descripcción 
+        owner:
+          title: Owner
+          type: string
+          description: Creador del componente
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+    - title: Elige dirección GitHub
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: https://github.com/Lobo83/backstage-templates/tree/master/Plantilla-Propia/skeleton
+        copyWithoutRender:
+          - .github/workflows/*
+        values:
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          artifact_id: ${{ parameters.component_id }}
+          java_package_name: ${{ parameters.java_package_name }}
+          owner: ${{ parameters.owner }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          http_port: 8080
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: This is ${{ parameters.component_id }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    entityRef: ${{ steps.register.output.entityRef }}
