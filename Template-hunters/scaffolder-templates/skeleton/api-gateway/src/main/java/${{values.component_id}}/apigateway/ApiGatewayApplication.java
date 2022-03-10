@@ -1,4 +1,4 @@
-package com.microservicios.apigateway;
+package ${{values.component_id}}.apigateway;
 
 
 import org.springframework.boot.SpringApplication;
