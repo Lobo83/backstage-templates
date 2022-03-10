@@ -1,9 +1,9 @@
-package com.microservicios.ums.controller;
+package  ${{values.component_id}}.ums.controller;
 
 
-import com.microservicios.interfaces.ums.controller.UserController;
-import com.microservicios.interfaces.ums.vo.UserVO;
-import com.microservicios.ums.service.UserService;
+import  ${{values.component_id}}.interfaces.ums.controller.UserController;
+import  ${{values.component_id}}.interfaces.ums.vo.UserVO;
+import  ${{values.component_id}}.ums.service.UserService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

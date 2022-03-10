@@ -1,8 +1,8 @@
-package com.microservicios.ums.controller;
+package  ${{values.component_id}}.ums.controller;
 
-import com.microservicios.interfaces.ums.controller.TokenController;
-import com.microservicios.interfaces.ums.vo.TokenVO;
-import com.microservicios.ums.service.TokenService;
+import  ${{values.component_id}}.interfaces.ums.controller.TokenController;
+import  ${{values.component_id}}.interfaces.ums.vo.TokenVO;
+import  ${{values.component_id}}.ums.service.TokenService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import javax.ws.rs.QueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
