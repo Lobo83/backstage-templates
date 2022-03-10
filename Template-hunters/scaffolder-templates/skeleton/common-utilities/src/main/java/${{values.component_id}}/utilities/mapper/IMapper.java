@@ -1,4 +1,4 @@
-package com.microservicios.utilities.mapper;
+package ${{values.component_id}}.utilities.mapper;
 
 import java.util.List;
 

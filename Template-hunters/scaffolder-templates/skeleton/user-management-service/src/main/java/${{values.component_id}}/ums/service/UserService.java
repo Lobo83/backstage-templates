@@ -1,6 +1,6 @@
-package com.microservicios.ums.service;
+package ${{values.component_id}}.ums.service;
 
-import com.microservicios.interfaces.ums.vo.UserVO;
+import ${{values.component_id}}.interfaces.ums.vo.UserVO;
 import java.util.List;
 
 /**

@@ -1,7 +1,7 @@
-package com.microservicios.interfaces.ums.controller;
+package ${{values.component_id}}.interfaces.ums.controller;
 
-import com.microservicios.interfaces.example.ExampleController;
-import com.microservicios.interfaces.ums.vo.UserVO;
+import ${{values.component_id}}.interfaces.example.ExampleController;
+import ${{values.component_id}}.interfaces.ums.vo.UserVO;
 import java.util.List;
 import javax.ws.rs.QueryParam;
 import org.springframework.cloud.openfeign.FeignClient;

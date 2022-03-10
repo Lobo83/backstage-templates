@@ -1,6 +1,6 @@
-package com.microservicios.ums;
+package ${{values.component_id}}.ums;
 
-import com.microservicios.utilities.security.EnableSecurity;
+import ${{values.component_id}}.utilities.security.EnableSecurity;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

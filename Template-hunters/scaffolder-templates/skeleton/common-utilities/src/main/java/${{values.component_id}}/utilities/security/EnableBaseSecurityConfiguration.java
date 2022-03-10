@@ -1,4 +1,4 @@
-package com.microservicios.utilities.security;
+package ${{values.component_id}}.utilities.security;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

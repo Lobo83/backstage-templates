@@ -1,4 +1,4 @@
-package com.microservicios.ums.service;
+package ${{values.component_id}}.ums.service;
 
 import java.util.List;
 import org.keycloak.representations.AccessTokenResponse;

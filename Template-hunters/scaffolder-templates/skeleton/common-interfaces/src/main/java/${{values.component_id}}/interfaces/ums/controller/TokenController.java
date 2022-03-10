@@ -1,6 +1,6 @@
-package com.microservicios.interfaces.ums.controller;
+package ${{values.component_id}}.interfaces.ums.controller;
 
-import com.microservicios.interfaces.ums.vo.TokenVO;
+import ${{values.component_id}}.interfaces.ums.vo.TokenVO;
 import javax.ws.rs.QueryParam;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,4 +1,4 @@
-package com.microservicios.interfaces.ums.vo;
+package ${{values.component_id}}.interfaces.ums.vo;
 
 import java.util.List;
 import java.util.Map;
