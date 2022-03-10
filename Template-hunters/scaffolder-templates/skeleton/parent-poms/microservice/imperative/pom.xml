@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>${{values.component_id}}</groupId>
+    <artifactId>microservicio-pom</artifactId>
+    <version>1.0.0</version>
+    <relativePath>../common</relativePath>
+  </parent>
+
+  <groupId>${{values.component_id}}</groupId>
+  <artifactId>imperative-microservicio-pom</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+  <properties>
+    <springdoc-openapi-ui.version>1.6.3</springdoc-openapi-ui.version>
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>${{values.component_id}}.utilities</groupId>
+      <artifactId>common-utilities</artifactId>
+      <version>${common-utilities.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${{values.component_id}}.interfaces</groupId>
+      <artifactId>common-interfaces</artifactId>
+      <version>${common-interfaces.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
+    <!--web app dependencies-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!--Rest documentation-->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${springdoc-openapi-ui.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-webflux-ui</artifactId>
+      <version>${springdoc-openapi-ui.version}</version>
+    </dependency>
+  </dependencies>
+</project>
