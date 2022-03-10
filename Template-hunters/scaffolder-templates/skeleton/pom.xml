@@ -10,7 +10,7 @@
 	
 	<modules>
 	 <module>Servicio-Ejemplo</module>
-     <module>ApiGateway-Ejemplo</module>
+     <module>api-gateway</module>
 	 <module>common-interfaces</module>
 	 <module>user-management-service</module>
 	 <module>common-utilities</module>
