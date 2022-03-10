@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: Plantilla-Arq-Referencia
-  title: Plantilla de la arquitectura de Referencia
+  name: Arquitectura-Referencia
+  title: Arquitectura de Referencia (Spring-Boot)
   description: Crea tu proyecto en base a la arquitectura de referencia
   tags:
     - recommended
@@ -123,7 +123,10 @@ spec:
     #     catalogInfoPath: "/catalog-info.yaml"
 
   output:
-    remoteUrl: ${{ steps.downloadfile.output.remoteUrl }}
+    links:
+      - title: Repository
+        remoteUrl: ${{ steps.downloadfile.output.remoteUrl }}
+   #remoteUrl: ${{ steps.downloadfile.output.remoteUrl }}
     entityRef: ${{ steps.register.output.entityRef }}
 
     # remoteUrl: "http://localhost:7007/static/${{parameters.path}}.zip"
