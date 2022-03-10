@@ -123,7 +123,7 @@ spec:
     #     catalogInfoPath: "/catalog-info.yaml"
 
   output:
-    remoteUrl: "https://rn3sandbox.altia.es/${{parameters.path}}.zip"
+    remoteUrl: "https://rn3sandbox.altia.es/static/${{parameters.path}}.zip"
     entityRef: ${{ steps.register.output.entityRef }}
 
     # remoteUrl: "http://localhost:7007/static/${{parameters.path}}.zip"
