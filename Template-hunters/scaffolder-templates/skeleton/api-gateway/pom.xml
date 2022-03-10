@@ -11,8 +11,8 @@
 	</parent>
 
 	<groupId>${{values.component_id}}</groupId>
-	<artifactId>ApiGateway-Ejemplo</artifactId>
-	<version>${apigatewayejemplo.version}</version>
+	<artifactId>api-gateway</artifactId>
+	<version>${api-gateway.version}</version>
 
 	<dependencies>
 		<dependency>

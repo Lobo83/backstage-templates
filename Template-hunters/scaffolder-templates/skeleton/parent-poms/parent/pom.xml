@@ -15,7 +15,7 @@
 	<properties>
 
 		<servicioejemplo.version>1.0.0</servicioejemplo.version>
-		<apigatewayejemplo.version>1.0.0</apigatewayejemplo.version>
+		<api-gateway.version>1.0.0</api-gateway.version>
 		<common-interfaces.version>1.0.0</common-interfaces.version>
 		<user-management.version>1.0.0</user-management.version>
 		<common-utilities.version>1.0.0</common-utilities.version>
