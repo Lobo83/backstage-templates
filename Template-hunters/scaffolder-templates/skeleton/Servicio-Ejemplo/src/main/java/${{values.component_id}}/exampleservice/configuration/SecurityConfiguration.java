@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
     http.csrf().disable().headers().frameOptions().sameOrigin().and().exceptionHandling().authenticationEntryPoint(myFirstAuthenticationEntryPoint).and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().antMatchers("/h2-console").permitAll()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().antMatchers("/h2-console","/entity/**").permitAll()
         .antMatchers("/ejemplo/**").hasAnyRole("ADMIN","USER").and().logout().logoutUrl("/logout");;
 
     http.addFilterBefore(myFirstFilter, UsernamePasswordAuthenticationFilter.class);
