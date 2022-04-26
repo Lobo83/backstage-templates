@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apiGateway
+  config:
+    import: consul:${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+
+  cloud:
+    consul:
+      discovery:
+        preferIpAddress: true
+        instanceId: ${spring.application.name}:${random.value}
+        deregister: true
+

@@ -1,0 +1,99 @@
+networks:
+  altia_network:
+    driver: bridge
+
+services:
+
+  consul:
+    image: hashicorp/consul:1.10.0
+    container_name: consul
+    restart: always
+    volumes:
+      - ./server.json:/consul/config/server.json:ro
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command: "agent"
+
+  redis:
+    image: 'bitnami/redis:5.0.14'
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - 9411:9411
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak-hunters
+      POSTGRES_USER: keycloak-hunters
+      POSTGRES_PASSWORD: hunters3
+    networks:
+      - altia_network
+
+  keycloak:
+    image: jboss/keycloak:16.1.0
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak-hunters
+      DB_USER: keycloak-hunters
+      DB_SCHEMA: public
+      DB_PASSWORD: hunters3
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: hunters3
+    ports:
+      - 8095:8080
+    depends_on:
+      - postgres
+    networks:
+      - altia_network
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hunters
+      MONGO_INITDB_ROOT_PASSWORD: hunters3
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  zookeeper:
+    image: bitnami/zookeeper:3.5.9
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: bitnami/kafka:2.8.1
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+      - 9092:9092
+    environment:
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+
+
+volumes:
+  mongodb_data_container:
+  postgres_data:
+    driver: local

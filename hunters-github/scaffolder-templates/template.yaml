@@ -1,0 +1,93 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: Plantilla-Arq-Referencia
+  title: Plantilla de la arquitectura de Referencia
+  description: Cree su proyecto en base a la Arquitectura de referencia
+  tags:
+    - recommended
+    - java
+spec:
+  owner: Equipo Hunters
+  type: service
+
+  parameters:
+    - title: Rellene información básica
+      required:
+        - component_id
+        - artifact_id
+        - description
+        - owner
+        - group_id
+      properties:
+        component_id:
+          title: Project ID
+          type: string
+          description: Identificador del proyecto ej. (com.miproyecto)
+        artifact_id:
+          title: Artifact ID
+          type: string
+          description: Identificador del artefacto del proyecto ej. (MiProyecto)
+        group_id:
+          title: Group ID
+          type: string
+          description: Identificador del grupo del proyecto ej. (MiProyecto)
+        description:
+          title: Description
+          type: string
+          description: Focalice los aspectos más importantes del proyecto.
+        owner:
+          title: Owner
+          type: string
+          description: Creador del componente
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+
+    - title: Elija dirección GitHub donde se alojará
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        copyWithoutRender:
+          - .github/workflows/*
+        values:
+          description: ${{ parameters.description }}
+          component_id: ${{ parameters.component_id }}
+          artifact_id: ${{ parameters.artifact_id }}
+          owner: ${{ parameters.owner }}
+#          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+#          http_port: 8080
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ["github.com"]
+        description: This is ${{ parameters.component_id }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    entityRef: ${{ steps.register.output.entityRef }}

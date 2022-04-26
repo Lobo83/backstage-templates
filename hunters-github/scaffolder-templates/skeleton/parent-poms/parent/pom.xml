@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.2</version>
+	</parent>
+	<groupId>${{values.component_id}}</groupId>
+	<artifactId>base-pom</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
+	
+	<properties>
+
+		<servicioejemplo.version>1.0.0</servicioejemplo.version>
+		<api-gateway.version>1.0.0</api-gateway.version>
+		<common-interfaces.version>1.0.0</common-interfaces.version>
+		<user-management.version>1.0.0</user-management.version>
+		<common-utilities.version>1.0.0</common-utilities.version>
+
+		<!--common dependencies version-->
+		<mapstruct.version>1.3.0.Final</mapstruct.version>
+		<projectlombok.version>1.18.0</projectlombok.version>
+		<mockito.version>3.11.2</mockito.version>
+		<log4j2.version>2.15.0</log4j2.version><!--avoiding log4j vulnerability-->
+		<java.version>11</java.version>
+
+	</properties>
+
+	<dependencies>
+		<!-- Lombook -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${projectlombok.version}</version>
+		</dependency>
+		<!-- Side libraries -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<!-- use mapstruct-jdk8 for Java 8 or higher -->
+			<version>${mapstruct.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>31.0.1-jre</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${projectlombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

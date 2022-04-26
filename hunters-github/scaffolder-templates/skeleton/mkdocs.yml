@@ -1,0 +1,8 @@
+site_name: "PruebaMicroServicios"
+site_description: "creando un proyecto de referencia"
+
+nav:
+  - Introduction: index.md
+
+plugins:
+  - techdocs-core

@@ -1,0 +1,8 @@
+{
+  "realm": "realmetahir",
+  "auth-server-url": "http://localhost:8095/auth/",
+  "ssl-required": "external",
+  "resource": "privatesection",
+  "public-client": true,
+  "confidential-port": 0
+}

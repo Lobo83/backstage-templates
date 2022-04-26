@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>${{values.component_id}}</groupId>
+    <artifactId>microservicio-pom</artifactId>
+    <version>1.0.0</version>
+    <relativePath>../common</relativePath>
+  </parent>
+
+  <groupId>${{values.component_id}}</groupId>
+  <artifactId>reactive-microservicio-pom</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0.0</version>
+
+  <dependencies>
+    <!--se añade para poder compartir estructuras de datos usadas en los servicios rest, pero la funcionalidad feign es incompatible en reactive-->
+    <dependency>
+      <groupId>${{values.component_id}}.interfaces</groupId>
+      <artifactId>common-interfaces</artifactId>
+      <version>${common-interfaces.version}</version>
+    </dependency>
+
+    <!--web app dependencies-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+
+    <!--Rest documentation-->
+
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-webflux-ui</artifactId>
+      <version>1.6.3</version>
+    </dependency>
+
+  </dependencies>
+</project>

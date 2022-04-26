@@ -1,0 +1,22 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+    
+  }
+  .header ul {
+    background-color: #222;
+    margin: 0;
+  }
+  .header button {
+    position: relative;
+    left: 70%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+  }
+  .header li {
+    font-family: sans-serif;
+    font-size: 1.2em;
+    line-height: 40px;
+    height: 40px;
+    border-bottom: 3px solid rgb(207, 38, 38);
+  }
