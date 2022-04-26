@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: example-service
+  config:
+    import: consul:${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}
+
+  cloud:
+    consul:
+      discovery:
+       # preferIpAddress: true
+        instanceId: ${spring.application.name}:${random.value}
+        deregister: true
+

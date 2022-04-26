@@ -1,0 +1,108 @@
+String cron_working_branch = BRANCH_NAME != "develop" && BRANCH_NAME != "sandbox" ? "@daily" : ""
+
+pipeline {
+
+    triggers {
+        cron(cron_working_branch)
+    }
+
+    agent {
+        label 'java11'
+    }
+    stages {
+        stage('Preparation') {
+            steps {
+                sh 'echo "Starting CI/CD Pipeline"'
+            }
+        }
+        stage('Compile') {
+            parallel {
+                stage('Compile JAVA') {
+                    steps {
+                        sh '''
+                            mvn -Dmaven.test.failure.ignore=true -s '/home/jenkins/.m2/settings.xml' clean install
+
+                        '''
+
+                    }
+                    post {
+
+                        always {
+                            junit '**/target/surefire-reports/*.xml'
+                        }
+                    }
+                }
+                
+                /*stage('Compile NPM') {
+                    steps {
+                    	sh 'rm -rf /node_modules/'
+                        sh 'rm -f package-lock.json'
+                        sh '''
+                            npm install --no-cache frontend-service/
+                        '''
+                    }
+
+                }*/
+            }
+        }
+
+        stage('Setup sandbox docker images build'){
+            steps{
+                script {
+                   env.API_GATEWAY_VERSION = sh script: 'mvn -f $WORKSPACE/parent-poms/parent/pom.xml  help:evaluate -Dexpression=api-gateway.version -q -DforceStdout', returnStdout: true
+                   env.EXAMPLE_VERSION = sh script: 'mvn -f $WORKSPACE/parent-poms/parent/pom.xml  help:evaluate -Dexpression=example.version -q -DforceStdout', returnStdout: true
+                   env.USER_MANAGEMENT_VERSION = sh script: 'mvn -f $WORKSPACE/parent-poms/parent/pom.xml  help:evaluate -Dexpression=user-management.version -q -DforceStdout', returnStdout: true
+                }
+            }
+        }
+        stage('Build Docker Images') {
+
+            parallel {
+                stage('Build Core Platform') {
+                    steps {
+                      script {
+                          echo 'Example Service'
+                          def app
+                          app = docker.build("k8s-swi001:5000/example-service:" + env.TAG_SUFIX, "--build-arg JAR_FILE=target/example-service-" + env.EXAMPLE_VERSION + ".jar --build-arg MS_PORT=8081 -f ./Dockerfile ./example-service")
+                          app.push()
+                          sh 'docker rmi k8s-swi001:5000/example-service:1.0${EXAMPLE_VERSION}'
+                      }
+
+                 }
+
+                stage('Build Integration Layer') {
+                  steps{
+                    script {
+                        echo 'API Gateway'
+                        def app
+                        app = docker.build("k8s-swi001:5000/api-gateway:"+env.API_GATEWAY_VERSION, "--build-arg JAR_FILE=target/api-gateway-" + env.API_GATEWAY_VERSION + ".jar --build-arg MS_PORT=8080 -f ./Dockerfile ./api-gateway ")
+                        app.push()
+                        sh 'docker rmi k8s-swi001:5000/api-gateway:${API_GATEWAY_VERSION}'
+                    }
+                    script {
+                        echo 'User Management Service'
+                        def app
+                        app = docker.build("k8s-swi001:5000/user-management-service:"+env.USER_MANAGEMENT_VERSION, "--build-arg JAR_FILE=target/user-management-service-" + env.USER_MANAGEMENT_VERSION + ".jar --build-arg MS_PORT=8082 -f ./Dockerfile ./user-management-service ")
+                        app.push()
+                        sh 'docker rmi k8s-swi001:5000/user-management-service:${USER_MANAGEMENT_VERSION}'
+                    }
+                }
+
+
+                /*stage('Build Frontend') {
+                    steps {
+                        script {
+                            echo 'ReportNet 3.0 Frontend'
+                            def app
+                            app = docker.build("k8s-swi001:5000/reportnet-frontend-service:3.0" + env.TAG_SUFIX, " ./frontend-service/")
+                            app.push()               
+                            sh 'docker rmi k8s-swi001:5000/reportnet-frontend-service:3.0${TAG_SUFIX}'     
+                        }
+                    }
+                }*/
+
+            }
+        }
+    }
+}
+
