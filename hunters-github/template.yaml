@@ -1,9 +1,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: Plantilla-Arq-Referencia
-  title: Plantilla de la arquitectura de Referencia
-  description: Cree su proyecto en base a la Arquitectura de referencia
+  name: Plantilla-Arq-Referencia-GitHub
+  title: Plantilla de la arquitectura de Referencia con publicacion en github
+  description: Crea tu proyecto en base a la Arquitectura de referencia
   tags:
     - recommended
     - java

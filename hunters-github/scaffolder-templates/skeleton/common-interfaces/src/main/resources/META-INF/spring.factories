@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=${{values.component_id}}.interfaces.configuration.InterfacesConfig
